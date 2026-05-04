@@ -1,0 +1,14 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 27, Failures: 1, Errors: 0, Skipped: 26, Time elapsed: 6.232 s <<< FAILURE! - in TestSuite
+setUp(com.appiumdemo.tests.ApiDemosTests)  Time elapsed: 5.347 s  <<< FAILURE!
+org.openqa.selenium.SessionNotCreatedException: 
+Could not start a new session. Response code 500. Message: The application at '/Users/shivanandadarura/VsProjects/appiumdemo/resources/ApiDemos-debug.apk' does not exist or is not accessible 
+Host info: host: 'AirvonSivananda', ip: '2a02:3100:1808:d00:d415:6bb:cc0e:15b0%en0'
+Build info: version: '4.13.0', revision: 'ba948ece5b*'
+System info: os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '12.7.6', java.version: '25.0.3'
+Driver info: io.appium.java_client.android.AndroidDriver
+Command: [null, newSession {capabilities=[{appium:app=/Users/shivanandadarura/VsProjects/appiumdemo/resources/ApiDemos-debug.apk, appium:automationName=UiAutomator2, appium:deviceName=emulator-5554, platformName=ANDROID}], desiredCapabilities=Capabilities {appium:app: /Users/shivanandadarura/VsP..., automationName: UiAutomator2, deviceName: emulator-5554, platformName: ANDROID}}]
+Capabilities {appium:app: /Users/shivanandadarura/VsP..., automationName: UiAutomator2, deviceName: emulator-5554, platformName: ANDROID}
+

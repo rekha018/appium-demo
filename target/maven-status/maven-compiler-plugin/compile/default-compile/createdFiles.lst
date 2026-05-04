@@ -1,0 +1,7 @@
+com/appiumdemo/pages/ControlsPage.class
+com/appiumdemo/pages/HomePage.class
+com/appiumdemo/pages/AlertDialogsPage.class
+com/appiumdemo/pages/LayoutsPage.class
+com/appiumdemo/pages/LogTextBoxPage.class
+com/appiumdemo/pages/ExpandableListsPage.class
+com/appiumdemo/pages/ProgressBarPage.class
