@@ -1,30 +1,46 @@
 package com.appiumdemo.pages;
 
-import org.openqa.selenium.By;
+import java.time.Duration;
 
-import io.appium.java_client.AppiumBy;
-import io.appium.java_client.android.AndroidDriver;
+import com.appiumdemo.utils.DriverFactory;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 public class ControlsPage {
-    private AndroidDriver driver;
+    AppiumDriver driver;
 
-    public ControlsPage(AndroidDriver driver) {
-        this.driver = driver;
+    public ControlsPage() {
+        this.driver = DriverFactory.getDriver();
+        PageFactory.initElements(
+                new AppiumFieldDecorator(driver, Duration.ofSeconds(10)), this);
     }
 
-    private By controls = AppiumBy.accessibilityId("Controls");
-    private By lightTheme = AppiumBy.accessibilityId("1. Light Theme");
-    private By checkbox = AppiumBy.accessibilityId("check1");
+    @AndroidFindBy(accessibility = "Controls")
+    @iOSXCUITFindBy(accessibility = "Controls")
+    private WebElement controls;
+
+    @AndroidFindBy(accessibility = "1. Light Theme")
+    @iOSXCUITFindBy(accessibility = "1. Light Theme")
+    private WebElement lightTheme;
+
+    @AndroidFindBy(accessibility = "check1")
+    @iOSXCUITFindBy(accessibility = "check1")
+    private WebElement checkbox;
 
     public void openControls() {
-        driver.findElement(controls).click();
+        controls.click();
     }
 
     public void openLightTheme() {
-        driver.findElement(lightTheme).click();
+        lightTheme.click();
     }
 
     public void toggleCheckbox() {
-        driver.findElement(checkbox).click();
+        checkbox.click();
     }
 }

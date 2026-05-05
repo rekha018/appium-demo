@@ -1,27 +1,43 @@
 package com.appiumdemo.pages;
 
-import org.openqa.selenium.By;
+import java.time.Duration;
 
-import io.appium.java_client.AppiumBy;
-import io.appium.java_client.android.AndroidDriver;
+import com.appiumdemo.utils.DriverFactory;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
 public class ProgressBarPage {
-    private AndroidDriver driver;
+    AppiumDriver driver;
 
-    public ProgressBarPage(AndroidDriver driver) {
-        this.driver = driver;
+    public ProgressBarPage() {
+        this.driver = DriverFactory.getDriver();
+        PageFactory.initElements(
+                new AppiumFieldDecorator(driver, Duration.ofSeconds(10)), this);
     }
 
-    private By views = AppiumBy.accessibilityId("Views");
-    private By progressBar = AppiumBy.accessibilityId("Progress Bar");
-    private By progressBtn = By.id("io.appium.android.apis:id/show_horizontal");
+    @AndroidFindBy(accessibility = "Views")
+    @iOSXCUITFindBy(accessibility = "Views")
+    private WebElement views;
+
+    @AndroidFindBy(accessibility = "Progress Bar")
+    @iOSXCUITFindBy(accessibility = "Progress Bar")
+    private WebElement progressBar;
+
+    @AndroidFindBy(id = "io.appium.android.apis:id/show_horizontal")
+    @iOSXCUITFindBy(accessibility = "Show Horizontal")
+    private WebElement progressBtn;
 
     public void openProgressBar() {
-        driver.findElement(views).click();
-        driver.findElement(progressBar).click();
+        views.click();
+        progressBar.click();
     }
 
     public void startProgress() {
-        driver.findElement(progressBtn).click();
+        progressBtn.click();
     }
 }

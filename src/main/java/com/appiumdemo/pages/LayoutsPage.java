@@ -1,25 +1,38 @@
 package com.appiumdemo.pages;
 
-import org.openqa.selenium.By;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
-import io.appium.java_client.AppiumBy;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.AppiumDriver;
+import com.appiumdemo.utils.DriverFactory;
+
+import java.time.Duration;
 
 public class LayoutsPage {
-    private AndroidDriver driver;
+    AppiumDriver driver;
 
-    public LayoutsPage(AndroidDriver driver) {
-        this.driver = driver;
+    public LayoutsPage() {
+        this.driver = DriverFactory.getDriver();
+        PageFactory.initElements(
+                new AppiumFieldDecorator(driver, Duration.ofSeconds(10)), this);
     }
 
-    private By layouts = AppiumBy.accessibilityId("Layouts");
-    private By defaultLayout = AppiumBy.accessibilityId("1. Default");
+    @AndroidFindBy(accessibility = "Layouts")
+    @iOSXCUITFindBy(accessibility = "Layouts")
+    private WebElement layouts;
+
+    @AndroidFindBy(accessibility = "1. Default")
+    @iOSXCUITFindBy(accessibility = "1. Default")
+    private WebElement defaultLayout;
 
     public void openLayouts() {
-        driver.findElement(layouts).click();
+        layouts.click();
     }
 
     public void openDefaultLayout() {
-        driver.findElement(defaultLayout).click();
+        defaultLayout.click();
     }
 }

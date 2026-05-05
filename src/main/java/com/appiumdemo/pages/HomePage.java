@@ -1,30 +1,46 @@
 package com.appiumdemo.pages;
 
-import org.openqa.selenium.By;
+import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.iOSXCUITFindBy;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
 
-import io.appium.java_client.AppiumBy;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.AppiumDriver;
+import com.appiumdemo.utils.DriverFactory;
+
+import java.time.Duration;
 
 public class HomePage {
-    private AndroidDriver driver;
+    AppiumDriver driver;
 
-    public HomePage(AndroidDriver driver) {
-        this.driver = driver;
+    public HomePage() {
+        this.driver = DriverFactory.getDriver();
+        PageFactory.initElements(
+                new AppiumFieldDecorator(driver, Duration.ofSeconds(10)), this);
     }
 
-    private final By appMenu = AppiumBy.accessibilityId("App");
-    private final By viewsMenu = AppiumBy.accessibilityId("Views");
-    private final By textMenu = AppiumBy.accessibilityId("Text");
+    @AndroidFindBy(accessibility = "App")
+    @iOSXCUITFindBy(accessibility = "App")
+    private WebElement appMenu;
+
+    @AndroidFindBy(accessibility = "Views")
+    @iOSXCUITFindBy(accessibility = "Views")
+    private WebElement viewsMenu;
+
+    @AndroidFindBy(accessibility = "Text")
+    @iOSXCUITFindBy(accessibility = "Text")
+    private WebElement textMenu;
 
     public void openAppMenu() {
-          driver.findElement(appMenu).click();
+        appMenu.click();
     }
 
     public void openViewsMenu() {
-        driver.findElement(viewsMenu).click();
+        viewsMenu.click();
     }
 
     public void openTextMenu() {
-        driver.findElement(textMenu).click();
+        textMenu.click();
     }
 }

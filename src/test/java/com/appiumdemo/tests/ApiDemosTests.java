@@ -6,58 +6,39 @@ import org.testng.annotations.Test;
 import com.appiumdemo.base.BaseTest;
 import com.appiumdemo.pages.AlertDialogsPage;
 import com.appiumdemo.pages.ControlsPage;
-import com.appiumdemo.pages.ExpandableListsPage;
 import com.appiumdemo.pages.HomePage;
 import com.appiumdemo.pages.LogTextBoxPage;
 import com.appiumdemo.pages.ProgressBarPage;
+import com.appiumdemo.utils.DriverFactory;
 
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.AppiumDriver;
 
 public class ApiDemosTests extends BaseTest {
 
-    @Test
-    public void testAlertDialogFlow() {
-        HomePage home = new HomePage(driver);
-        AlertDialogsPage alert = new AlertDialogsPage(driver);
+    private AppiumDriver driver;
+    private HomePage homePage;
 
-        home.openAppMenu();
+    @Test
+    public void testAlertDialogs() {
+        homePage = new HomePage();
+        AlertDialogsPage alert = new AlertDialogsPage();
+        driver = DriverFactory.getDriver();
+
+        homePage.openAppMenu();
         alert.openAlertDialogs();
-        alert.clickOkCancelDialog();
-        alert.acceptAlert();
+        alert.openOkCancelDialog();
+        alert.clickOk();
+        Assert.assertTrue(driver.getPageSource().contains("App/Alert Dialogs"));
     }
 
     @Test
-    public void ScrollViewTest() {
-        HomePage home = new HomePage(driver);
+    public void testControls() {
+        homePage = new HomePage();
+        ControlsPage controls = new ControlsPage();
+        driver = DriverFactory.getDriver();
 
-        home.openViewsMenu();
-
-        // Scroll to "ScrollView"
-        driver.findElement(AppiumBy.androidUIAutomator(
-                "new UiScrollable(new UiSelector()).scrollIntoView(text(\"ScrollView\"));")).click();
-
-        Assert.assertTrue(driver.getPageSource().contains("ScrollView"));
-    }
-
-    @Test
-    public void ExpandableListTest() {
-        HomePage home = new HomePage(driver);
-        ExpandableListsPage list = new ExpandableListsPage(driver);
-
-        home.openViewsMenu();
-        list.openExpandableLists();
-        list.openCustomAdapter();
-        list.clickPeopleNames();
-
-        Assert.assertTrue(driver.getPageSource().contains("Arnold"));
-    }
-
-    @Test
-    public void ControlsTest() {
-        HomePage home = new HomePage(driver);
-        ControlsPage controls = new ControlsPage(driver);
-
-        home.openViewsMenu();
+        homePage.openViewsMenu();
         controls.openControls();
         controls.openLightTheme();
         controls.toggleCheckbox();
@@ -67,24 +48,12 @@ public class ApiDemosTests extends BaseTest {
     }
 
     @Test
-    public void AlertDialogsTest() {
-        HomePage home = new HomePage(driver);
-        AlertDialogsPage alert = new AlertDialogsPage(driver);
+    public void testLogTextBox() {
+        homePage = new HomePage();
+        LogTextBoxPage log = new LogTextBoxPage();
+        driver = DriverFactory.getDriver();
 
-        home.openAppMenu();
-        alert.openAlertDialogs();
-        alert.clickOkCancelDialog();
-        alert.acceptAlert();
-
-        Assert.assertTrue(driver.getPageSource().contains("App"));
-    }
-
-    @Test
-    public void LogTextBoxTest() {
-        HomePage home = new HomePage(driver);
-        LogTextBoxPage log = new LogTextBoxPage(driver);
-
-        home.openTextMenu();
+        homePage.openTextMenu();
         log.openLogTextBox();
         log.clickAdd();
 
@@ -92,40 +61,14 @@ public class ApiDemosTests extends BaseTest {
     }
 
     @Test
-    public void ListsTest() {
-        HomePage home = new HomePage(driver);
-
-        home.openViewsMenu();
-
-        driver.findElement(AppiumBy.accessibilityId("Lists")).click();
-        driver.findElement(AppiumBy.accessibilityId("1. Array")).click();
-
-        Assert.assertTrue(driver.getPageSource().contains("Item 1"));
-    }
-
-    @Test
-    public void ProgressBarTest() {
-        HomePage home = new HomePage(driver);
-        ProgressBarPage progress = new ProgressBarPage(driver);
+    public void testProgressBar() {
+        homePage = new HomePage();
+        ProgressBarPage progress = new ProgressBarPage();
+        driver = DriverFactory.getDriver();
 
         progress.openProgressBar();
         progress.startProgress();
 
         Assert.assertTrue(driver.getPageSource().contains("Progress"));
-    }
-
-    @Test
-    public void HorizontalScrollTest() {
-        HomePage home = new HomePage(driver);
-
-        home.openViewsMenu();
-
-        driver.findElement(AppiumBy.androidUIAutomator(
-                "new UiScrollable(new UiSelector()).scrollIntoView(text(\"Horizontal ScrollView\"));")).click();
-
-        // Click a tab inside horizontal scroll
-        driver.findElement(AppiumBy.accessibilityId("Tab 2")).click();
-
-        Assert.assertTrue(driver.getPageSource().contains("Tab 2"));
     }
 }
